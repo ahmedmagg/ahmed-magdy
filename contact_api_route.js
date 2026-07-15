@@ -12,7 +12,7 @@ import nodemailer from 'nodemailer';
 const USE_RESEND = true;
 
 // Resend API Key — احصل عليه من: https://resend.com
-const RESEND_API_KEY = process.env.RESEND_API_KEY;
+const RESEND_API_KEY = re_TNXm1YB4_7sbo2QMB1spey7xBfbH4NxdV;
 
 // أو إعدادات SMTP (Gmail, Outlook, إلخ)
 const SMTP_CONFIG = {
