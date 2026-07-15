@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>نموذج التواصل</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Noto Sans Arabic', 'Segoe UI', Tahoma, sans-serif;
+      background: #f3f4f6;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1rem;
+    }
+
+    .kimi-form-container {
+      max-width: 600px;
+      width: 100%;
+      background: #ffffff;
+      padding: 2.5rem;
+      border-radius: 16px;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+    }
+
+    .form-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .form-header h2 {
+      color: #1f2937;
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .form-header p {
+      color: #6b7280;
+      font-size: 0.9rem;
+    }
+
+    .kimi-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    @media (max-width: 480px) {
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+      .kimi-form-container {
+        padding: 1.5rem;
+      }
+    }
+
+    label {
+      font-weight: 600;
+      color: #374151;
+      font-size: 0.9rem;
+    }
+
+    .required {
+      color: #dc2626;
+    }
+
+    input[type="text"],
+    input[type="tel"],
+    input[type="email"],
+    textarea {
+      padding: 0.85rem 1rem;
+      border: 2px solid #e5e7eb;
+      border-radius: 10px;
+      font-size: 1rem;
+      background: #ffffff;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      font-family: inherit;
+      color: #1f2937;
+      width: 100%;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: #9ca3af;
+      font-size: 0.9rem;
+    }
+
+    input:focus,
+    textarea:focus {
+      outline: none;
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+    }
+
+    input.error,
+    textarea.error {
+      border-color: #dc2626;
+      background: #fef2f2;
+    }
+
+    .error-msg {
+      color: #dc2626;
+      font-size: 0.78rem;
+      display: none;
+      margin-top: -0.2rem;
+    }
+
+    .error-msg.visible {
+      display: block;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    .file-group {
+      position: relative;
+    }
+
+    input[type="file"] {
+      position: absolute;
+      opacity: 0;
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+    }
+
+    .file-label {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      padding: 1.5rem;
+      border: 2px dashed #d1d5db;
+      border-radius: 12px;
+      background: #f9fafb;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      text-align: center;
+      position: relative;
+    }
+
+    .file-label:hover {
+      border-color: #3b82f6;
+      background: #eff6ff;
+    }
+
+    .file-label.has-file {
+      border-color: #10b981;
+      background: #ecfdf5;
+    }
+
+    .upload-icon {
+      width: 32px;
+      height: 32px;
+      color: #6b7280;
+    }
+
+    .file-text {
+      font-weight: 600;
+      color: #374151;
+      font-size: 0.95rem;
+    }
+
+    .file-hint {
+      font-size: 0.78rem;
+      color: #9ca3af;
+    }
+
+    .file-info {
+      margin-top: 0.5rem;
+      padding: 0.5rem 0.75rem;
+      background: #ecfdf5;
+      border-radius: 8px;
+      color: #047857;
+      font-size: 0.85rem;
+      display: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .file-info.visible {
+      display: flex;
+    }
+
+    .file-remove {
+      margin-right: auto;
+      color: #dc2626;
+      cursor: pointer;
+      font-size: 0.75rem;
+      text-decoration: underline;
+    }
+
+    .submit-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 1rem 2rem;
+      background: #3b82f6;
+      color: #ffffff;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+      font-family: inherit;
+      width: 100%;
+      margin-top: 0.5rem;
+    }
+
+    .submit-btn:hover {
+      background: #2563eb;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+    }
+
+    .submit-btn:active {
+      transform: scale(0.98);
+    }
+
+    .submit-btn:disabled {
+      background: #9ca3af;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+
+    .spinner {
+      width: 18px;
+      height: 18px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .message {
+      text-align: center;
+      padding: 2.5rem 2rem;
+      border-radius: 12px;
+      margin-top: 1rem;
+      animation: fadeIn 0.4s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .message.success {
+      background: #ecfdf5;
+      border: 1px solid #a7f3d0;
+      color: #065f46;
+    }
+
+    .message.error {
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      color: #991b1b;
+    }
+
+    .message-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.75rem;
+      font-weight: bold;
+      margin: 0 auto 1rem;
+    }
+
+    .success .message-icon {
+      background: #10b981;
+      color: white;
+    }
+
+    .error .message-icon {
+      background: #ef4444;
+      color: white;
+    }
+
+    .message h3 {
+      margin: 0 0 0.5rem;
+      font-size: 1.2rem;
+    }
+
+    .message p {
+      margin: 0;
+      font-size: 0.95rem;
+      opacity: 0.9;
+      line-height: 1.6;
+    }
+
+    .retry-btn {
+      margin-top: 1rem;
+      padding: 0.6rem 1.5rem;
+      background: #ef4444;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-family: inherit;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: background 0.2s;
+    }
+
+    .retry-btn:hover {
+      background: #dc2626;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="kimi-form-container">
+    <div class="form-header">
+      <h2>📋 نموذج طلب خدمة</h2>
+      <p>املأ البيانات التالية وسنقوم بالتواصل معك في أقرب وقت</p>
+    </div>
+
+    <form id="contactForm" class="kimi-form" novalidate>
+      <div class="form-group">
+        <label for="fullName">الاسم الكامل <span class="required">*</span></label>
+        <input type="text" id="fullName" name="fullName" required placeholder="أدخل اسمك الكامل">
+        <span class="error-msg" id="error-fullName">هذا الحقل مطلوب</span>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="phone">رقم الهاتف <span class="required">*</span></label>
+          <input type="tel" id="phone" name="phone" required placeholder="مثال: 01234567890">
+          <span class="error-msg" id="error-phone">هذا الحقل مطلوب</span>
+        </div>
+        <div class="form-group">
+          <label for="email">البريد الإلكتروني <span class="required">*</span></label>
+          <input type="email" id="email" name="email" required placeholder="example@email.com">
+          <span class="error-msg" id="error-email">أدخل بريد إلكتروني صحيح</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="description">وصف التاسك/الخدمة المطلوبة <span class="required">*</span></label>
+        <textarea id="description" name="description" rows="5" required placeholder="اشرح بالتفصيل الخدمة أو المشروع المطلوب..."></textarea>
+        <span class="error-msg" id="error-description">هذا الحقل مطلوب</span>
+      </div>
+
+      <div class="form-group file-group">
+        <label for="fileUpload" class="file-label" id="fileLabel">
+          <svg class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="17 8 12 3 7 8"></polyline>
+            <line x1="12" y1="3" x2="12" y2="15"></line>
+          </svg>
+          <span class="file-text">رفع ملف (اختياري)</span>
+          <span class="file-hint">صور / PDF / مستندات — حد أقصى 5MB</span>
+        </label>
+        <input type="file" id="fileUpload" name="fileUpload" accept=".jpg,.jpeg,.png,.gif,.pdf,.doc,.docx,.txt">
+        <div class="file-info" id="fileInfo"></div>
+      </div>
+
+      <button type="submit" id="submitBtn" class="submit-btn">
+        <span class="btn-text">إرسال الطلب</span>
+        <span class="btn-spinner" style="display:none; align-items:center; gap:0.5rem;">
+          <svg class="spinner" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10" stroke-dasharray="60" stroke-dashoffset="20"></circle>
+          </svg>
+          جاري الإرسال...
+        </span>
+      </button>
+    </form>
+
+    <div id="successMessage" class="message success" style="display:none;">
+      <div class="message-icon">✓</div>
+      <h3>تم إرسال طلبك بنجاح!</h3>
+      <p>هنتواصل معاك قريب على البريد أو الهاتف اللي سجلته.</p>
+    </div>
+
+    <div id="errorMessage" class="message error" style="display:none;">
+      <div class="message-icon">✕</div>
+      <h3>حدث خطأ أثناء الإرسال</h3>
+      <p id="errorText">يرجى المحاولة مرة أخرى أو التواصل معنا مباشرة.</p>
+      <button class="retry-btn" onclick="retryForm()">إعادة المحاولة</button>
+    </div>
+  </div>
+
+  <script>
+    // ═══════════════════════════════════════════════════════════════
+    // CONFIGURATION — اختر طريقة الإرسال المناسبة
+    // ═══════════════════════════════════════════════════════════════
+
+    // ─── خيار 1: Web3Forms (الأسهل — بدون تسجيل معقد) ───
+    const USE_WEB3FORMS = true;
+    const WEB3FORMS_ACCESS_KEY = '4d73f7c3-7e66-4ec1-a961-0ba6a09a9ce2'; // ← استبدل هذا بمفتاحك من web3forms.com
+
+    // ─── خيار 2: Formspree ───
+    // const USE_FORMSPREE = false;
+    // const FORMSPREE_ENDPOINT = 'https://formspree.io/f/YOUR_FORM_ID';
+
+    // ─── خيار 3: EmailJS ───
+    // const USE_EMAILJS = false;
+    // const EMAILJS_SERVICE_ID = 'YOUR_SERVICE_ID';
+    // const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID';
+    // const EMAILJS_PUBLIC_KEY = 'YOUR_PUBLIC_KEY';
+
+    // ─── خيار 4: Next.js API Route (Nodemailer/Resend) ───
+    // const USE_API_ROUTE = false;
+    // const API_ROUTE_URL = '/api/contact';
+
+    // ═══════════════════════════════════════════════════════════════
+
+    const form = document.getElementById('contactForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const btnText = submitBtn.querySelector('.btn-text');
+    const btnSpinner = submitBtn.querySelector('.btn-spinner');
+    const fileInput = document.getElementById('fileUpload');
+    const fileLabel = document.getElementById('fileLabel');
+    const fileInfo = document.getElementById('fileInfo');
+    const successMsg = document.getElementById('successMessage');
+    const errorMsg = document.getElementById('errorMessage');
+    const errorText = document.getElementById('errorText');
+
+    // ====== File Upload Preview ======
+    fileInput.addEventListener('change', function() {
+      const file = this.files[0];
+      if (file) {
+        const maxSize = 5 * 1024 * 1024; // 5MB
+        if (file.size > maxSize) {
+          alert('⚠️ حجم الملف يتجاوز 5MB. يرجى اختيار ملف أصغر.');
+          this.value = '';
+          fileLabel.classList.remove('has-file');
+          fileInfo.classList.remove('visible');
+          return;
+        }
+        fileInfo.innerHTML = `
+          <span>📎 ${file.name} (${(file.size / 1024).toFixed(1)} KB)</span>
+          <span class="file-remove" onclick="removeFile(event)">إزالة</span>
+        `;
+        fileInfo.classList.add('visible');
+        fileLabel.classList.add('has-file');
+      } else {
+        removeFile();
+      }
+    });
+
+    function removeFile(e) {
+      if (e) e.preventDefault();
+      fileInput.value = '';
+      fileLabel.classList.remove('has-file');
+      fileInfo.classList.remove('visible');
+    }
+
+    // ====== Validation ======
+    function validateField(field) {
+      const errorEl = document.getElementById('error-' + field.name);
+      let isValid = true;
+
+      if (field.type === 'email') {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        isValid = emailRegex.test(field.value.trim());
+      } else {
+        isValid = field.value.trim().length > 0;
+      }
+
+      if (!isValid) {
+        field.classList.add('error');
+        if (errorEl) errorEl.classList.add('visible');
+      } else {
+        field.classList.remove('error');
+        if (errorEl) errorEl.classList.remove('visible');
+      }
+      return isValid;
+    }
+
+    ['fullName', 'phone', 'email', 'description'].forEach(id => {
+      const el = document.getElementById(id);
+      el.addEventListener('blur', () => validateField(el));
+      el.addEventListener('input', () => {
+        if (el.classList.contains('error')) validateField(el);
+      });
+    });
+
+    // ====== Submit Handler ======
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      // Validate all fields
+      let allValid = true;
+      ['fullName', 'phone', 'email', 'description'].forEach(id => {
+        if (!validateField(document.getElementById(id))) allValid = false;
+      });
+      if (!allValid) return;
+
+      // Loading state
+      submitBtn.disabled = true;
+      btnText.style.display = 'none';
+      btnSpinner.style.display = 'flex';
+      successMsg.style.display = 'none';
+      errorMsg.style.display = 'none';
+
+      try {
+        let response;
+
+        if (USE_WEB3FORMS) {
+          // ═══════════════════════════════════════
+          // Web3Forms Implementation
+          // ═══════════════════════════════════════
+          const formData = new FormData();
+          formData.append('4d73f7c3-7e66-4ec1-a961-0ba6a09a9ce2', WEB3FORMS_ACCESS_KEY);
+          formData.append('subject', 'طلب خدمة جديد من ' + document.getElementById('fullName').value);
+          formData.append('from_name', document.getElementById('fullName').value);
+          formData.append('email', document.getElementById('email').value);
+          formData.append('phone', document.getElementById('phone').value);
+          formData.append('message', document.getElementById('description').value);
+
+          const file = fileInput.files[0];
+          if (file) formData.append('attachment', file);
+
+          response = await fetch('https://api.web3forms.com/submit', {
+            method: 'POST',
+            body: formData
+          });
+
+          const result = await response.json();
+
+          if (result.success) {
+            showSuccess();
+          } else {
+            throw new Error(result.message || 'فشل في الإرسال');
+          }
+
+        } else if (typeof USE_FORMSPREE !== 'undefined' && USE_FORMSPREE) {
+          // ═══════════════════════════════════════
+          // Formspree Implementation
+          // ═══════════════════════════════════════
+          const formData = new FormData(form);
+          response = await fetch(FORMSPREE_ENDPOINT, {
+            method: 'POST',
+            body: formData,
+            headers: { 'Accept': 'application/json' }
+          });
+
+          if (response.ok) {
+            showSuccess();
+          } else {
+            throw new Error('فشل في الإرسال عبر Formspree');
+          }
+
+        } else if (typeof USE_API_ROUTE !== 'undefined' && USE_API_ROUTE) {
+          // ═══════════════════════════════════════
+          // Next.js API Route Implementation
+          // ═══════════════════════════════════════
+          const formData = new FormData(form);
+          response = await fetch(API_ROUTE_URL, {
+            method: 'POST',
+            body: formData
+          });
+
+          const result = await response.json();
+
+          if (response.ok && result.success) {
+            showSuccess();
+          } else {
+            throw new Error(result.message || 'فشل في الإرسال');
+          }
+        }
+
+      } catch (err) {
+        showError(err.message || 'حدث خطأ أثناء الإرسال. يرجى المحاولة مرة أخرى.');
+      } finally {
+        submitBtn.disabled = false;
+        btnText.style.display = 'inline';
+        btnSpinner.style.display = 'none';
+      }
+    });
+
+    function showSuccess() {
+      successMsg.style.display = 'block';
+      form.style.display = 'none';
+      form.reset();
+      fileLabel.classList.remove('has-file');
+      fileInfo.classList.remove('visible');
+    }
+
+    function showError(msg) {
+      errorText.textContent = msg;
+      errorMsg.style.display = 'block';
+    }
+
+    function retryForm() {
+      errorMsg.style.display = 'none';
+      submitBtn.disabled = false;
+      btnText.style.display = 'inline';
+      btnSpinner.style.display = 'none';
+    }
+  </script>
+
+</body>
+</html>
