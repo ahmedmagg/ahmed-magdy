@@ -22,7 +22,7 @@
       padding: 2rem 1rem;
     }
 
-    .ahmed-form-container {
+    .kimi-form-container {
       max-width: 600px;
       width: 100%;
       background: #ffffff;
@@ -70,7 +70,7 @@
       .form-row {
         grid-template-columns: 1fr;
       }
-      .ahmed-form-container {
+      .kimi-form-container {
         padding: 1.5rem;
       }
     }
@@ -133,88 +133,6 @@
     textarea {
       resize: vertical;
       min-height: 120px;
-    }
-
-    .file-group {
-      position: relative;
-    }
-
-    input[type="file"] {
-      position: absolute;
-      opacity: 0;
-      width: 100%;
-      height: 100%;
-      cursor: pointer;
-      top: 0;
-      left: 0;
-    }
-
-    .file-label {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 0.4rem;
-      padding: 1.5rem;
-      border: 2px dashed #d1d5db;
-      border-radius: 12px;
-      background: #f9fafb;
-      cursor: pointer;
-      transition: border-color 0.2s, background 0.2s;
-      text-align: center;
-      position: relative;
-    }
-
-    .file-label:hover {
-      border-color: #3b82f6;
-      background: #eff6ff;
-    }
-
-    .file-label.has-file {
-      border-color: #10b981;
-      background: #ecfdf5;
-    }
-
-    .upload-icon {
-      width: 32px;
-      height: 32px;
-      color: #6b7280;
-    }
-
-    .file-text {
-      font-weight: 600;
-      color: #374151;
-      font-size: 0.95rem;
-    }
-
-    .file-hint {
-      font-size: 0.78rem;
-      color: #9ca3af;
-    }
-
-    .file-info {
-      margin-top: 0.5rem;
-      padding: 0.5rem 0.75rem;
-      background: #ecfdf5;
-      border-radius: 8px;
-      color: #047857;
-      font-size: 0.85rem;
-      display: none;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .file-info.visible {
-      display: flex;
-    }
-
-    .file-remove {
-      margin-right: auto;
-      color: #dc2626;
-      cursor: pointer;
-      font-size: 0.75rem;
-      text-decoration: underline;
     }
 
     .submit-btn {
@@ -338,10 +256,11 @@
       background: #dc2626;
     }
   </style>
+<base target="_blank">
 </head>
 <body>
 
-  <div class="ahmed-form-container">
+  <div class="kimi-form-container">
     <div class="form-header">
       <h2>📋 نموذج طلب خدمة</h2>
       <p>املأ البيانات التالية وسنقوم بالتواصل معك في أقرب وقت</p>
@@ -427,42 +346,9 @@
     const submitBtn = document.getElementById('submitBtn');
     const btnText = submitBtn.querySelector('.btn-text');
     const btnSpinner = submitBtn.querySelector('.btn-spinner');
-    const fileInput = document.getElementById('fileUpload');
-    const fileLabel = document.getElementById('fileLabel');
-    const fileInfo = document.getElementById('fileInfo');
     const successMsg = document.getElementById('successMessage');
     const errorMsg = document.getElementById('errorMessage');
     const errorText = document.getElementById('errorText');
-
-    // ====== File Upload Preview ======
-    fileInput.addEventListener('change', function() {
-      const file = this.files[0];
-      if (file) {
-        const maxSize = 5 * 1024 * 1024; // 5MB
-        if (file.size > maxSize) {
-          alert('⚠️ حجم الملف يتجاوز 5MB. يرجى اختيار ملف أصغر.');
-          this.value = '';
-          fileLabel.classList.remove('has-file');
-          fileInfo.classList.remove('visible');
-          return;
-        }
-        fileInfo.innerHTML = `
-          <span>📎 ${file.name} (${(file.size / 1024).toFixed(1)} KB)</span>
-          <span class="file-remove" onclick="removeFile(event)">إزالة</span>
-        `;
-        fileInfo.classList.add('visible');
-        fileLabel.classList.add('has-file');
-      } else {
-        removeFile();
-      }
-    });
-
-    function removeFile(e) {
-      if (e) e.preventDefault();
-      fileInput.value = '';
-      fileLabel.classList.remove('has-file');
-      fileInfo.classList.remove('visible');
-    }
 
     // ====== Validation ======
     function validateField(field) {
@@ -519,20 +405,19 @@
           // ═══════════════════════════════════════
           // Web3Forms Implementation
           // ═══════════════════════════════════════
-          const formData = new FormData();
-          formData.append('access_key', WEB3FORMS_ACCESS_KEY);
-          formData.append('subject', 'طلب خدمة جديد من ' + document.getElementById('fullName').value);
-          formData.append('from_name', document.getElementById('fullName').value);
-          formData.append('email', document.getElementById('email').value);
-          formData.append('phone', document.getElementById('phone').value);
-          formData.append('message', document.getElementById('description').value);
-
-          const file = fileInput.files[0];
-          if (file) formData.append('attachment', file);
+          const payload = {
+            access_key: WEB3FORMS_ACCESS_KEY,
+            subject: 'طلب خدمة جديد من ' + document.getElementById('fullName').value,
+            from_name: document.getElementById('fullName').value,
+            email: document.getElementById('email').value,
+            phone: document.getElementById('phone').value,
+            message: document.getElementById('description').value,
+          };
 
           response = await fetch('https://api.web3forms.com/submit', {
             method: 'POST',
-            body: formData
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
           });
 
           const result = await response.json();
@@ -592,8 +477,6 @@
       successMsg.style.display = 'block';
       form.style.display = 'none';
       form.reset();
-      fileLabel.classList.remove('has-file');
-      fileInfo.classList.remove('visible');
     }
 
     function showError(msg) {
