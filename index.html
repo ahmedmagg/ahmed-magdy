@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>نموذج التواصل</title>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;600;700&display=swap" rel="stylesheet">
+  <title>Contact Form</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     * {
       margin: 0;
@@ -13,8 +13,8 @@
     }
 
     body {
-      font-family: 'Noto Sans Arabic', 'Segoe UI', Tahoma, sans-serif;
-      background: #f3f4f6;
+      font-family: 'Inter', 'Segoe UI', Tahoma, sans-serif;
+      background: #05070d;
       min-height: 100vh;
       display: flex;
       align-items: center;
@@ -25,10 +25,11 @@
     .kimi-form-container {
       max-width: 600px;
       width: 100%;
-      background: #ffffff;
+      background: #0f1420;
       padding: 2.5rem;
       border-radius: 16px;
-      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+      border: 1px solid #1e293b;
+      box-shadow: 0 4px 32px rgba(0, 0, 0, 0.5);
     }
 
     .form-header {
@@ -37,14 +38,14 @@
     }
 
     .form-header h2 {
-      color: #1f2937;
+      color: #e5e9f0;
       font-size: 1.5rem;
       font-weight: 700;
       margin-bottom: 0.5rem;
     }
 
     .form-header p {
-      color: #6b7280;
+      color: #8b96a8;
       font-size: 0.9rem;
     }
 
@@ -77,12 +78,12 @@
 
     label {
       font-weight: 600;
-      color: #374151;
+      color: #c7cedb;
       font-size: 0.9rem;
     }
 
     .required {
-      color: #dc2626;
+      color: #ef4444;
     }
 
     input[type="text"],
@@ -90,37 +91,37 @@
     input[type="email"],
     textarea {
       padding: 0.85rem 1rem;
-      border: 2px solid #e5e7eb;
+      border: 2px solid #263248;
       border-radius: 10px;
       font-size: 1rem;
-      background: #ffffff;
+      background: #131a29;
       transition: border-color 0.2s, box-shadow 0.2s;
       font-family: inherit;
-      color: #1f2937;
+      color: #e5e9f0;
       width: 100%;
     }
 
     input::placeholder,
     textarea::placeholder {
-      color: #9ca3af;
+      color: #5b6577;
       font-size: 0.9rem;
     }
 
     input:focus,
     textarea:focus {
       outline: none;
-      border-color: #3b82f6;
-      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.25);
     }
 
     input.error,
     textarea.error {
-      border-color: #dc2626;
-      background: #fef2f2;
+      border-color: #ef4444;
+      background: #1f1315;
     }
 
     .error-msg {
-      color: #dc2626;
+      color: #f87171;
       font-size: 0.78rem;
       display: none;
       margin-top: -0.2rem;
@@ -141,7 +142,7 @@
       justify-content: center;
       gap: 0.5rem;
       padding: 1rem 2rem;
-      background: #3b82f6;
+      background: #1d4ed8;
       color: #ffffff;
       border: none;
       border-radius: 10px;
@@ -155,8 +156,8 @@
     }
 
     .submit-btn:hover {
-      background: #2563eb;
-      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+      background: #1e40af;
+      box-shadow: 0 4px 16px rgba(29, 78, 216, 0.4);
     }
 
     .submit-btn:active {
@@ -164,7 +165,7 @@
     }
 
     .submit-btn:disabled {
-      background: #9ca3af;
+      background: #374151;
       cursor: not-allowed;
       box-shadow: none;
     }
@@ -193,15 +194,15 @@
     }
 
     .message.success {
-      background: #ecfdf5;
-      border: 1px solid #a7f3d0;
-      color: #065f46;
+      background: #0d1f1a;
+      border: 1px solid #14532d;
+      color: #6ee7b7;
     }
 
     .message.error {
-      background: #fef2f2;
-      border: 1px solid #fecaca;
-      color: #991b1b;
+      background: #1f1315;
+      border: 1px solid #7f1d1d;
+      color: #fca5a5;
     }
 
     .message-icon {
@@ -217,12 +218,12 @@
     }
 
     .success .message-icon {
-      background: #10b981;
+      background: #16a34a;
       color: white;
     }
 
     .error .message-icon {
-      background: #ef4444;
+      background: #dc2626;
       color: white;
     }
 
@@ -241,7 +242,7 @@
     .retry-btn {
       margin-top: 1rem;
       padding: 0.6rem 1.5rem;
-      background: #ef4444;
+      background: #b91c1c;
       color: white;
       border: none;
       border-radius: 8px;
@@ -253,7 +254,7 @@
     }
 
     .retry-btn:hover {
-      background: #dc2626;
+      background: #991b1b;
     }
   </style>
 <base target="_blank">
@@ -262,81 +263,81 @@
 
   <div class="kimi-form-container">
     <div class="form-header">
-      <h2>📋 نموذج طلب خدمة</h2>
-      <p>املأ البيانات التالية وسنقوم بالتواصل معك في أقرب وقت</p>
+      <h2>📋 Service Request Form</h2>
+      <p>Fill in the details below and we'll get back to you as soon as possible</p>
     </div>
 
     <form id="contactForm" class="kimi-form" novalidate>
       <div class="form-group">
-        <label for="fullName">الاسم الكامل <span class="required">*</span></label>
-        <input type="text" id="fullName" name="fullName" required placeholder="أدخل اسمك الكامل">
-        <span class="error-msg" id="error-fullName">هذا الحقل مطلوب</span>
+        <label for="fullName">Full Name <span class="required">*</span></label>
+        <input type="text" id="fullName" name="fullName" required placeholder="Enter your full name">
+        <span class="error-msg" id="error-fullName">This field is required</span>
       </div>
 
       <div class="form-row">
         <div class="form-group">
-          <label for="phone">رقم الهاتف <span class="required">*</span></label>
-          <input type="tel" id="phone" name="phone" required placeholder="مثال: 01234567890">
-          <span class="error-msg" id="error-phone">هذا الحقل مطلوب</span>
+          <label for="phone">Phone Number <span class="required">*</span></label>
+          <input type="tel" id="phone" name="phone" required placeholder="e.g. 01234567890">
+          <span class="error-msg" id="error-phone">This field is required</span>
         </div>
         <div class="form-group">
-          <label for="email">البريد الإلكتروني <span class="required">*</span></label>
+          <label for="email">Email Address <span class="required">*</span></label>
           <input type="email" id="email" name="email" required placeholder="example@email.com">
-          <span class="error-msg" id="error-email">أدخل بريد إلكتروني صحيح</span>
+          <span class="error-msg" id="error-email">Please enter a valid email address</span>
         </div>
       </div>
 
       <div class="form-group">
-        <label for="description">وصف التاسك/الخدمة المطلوبة <span class="required">*</span></label>
-        <textarea id="description" name="description" rows="5" required placeholder="اشرح بالتفصيل الخدمة أو المشروع المطلوب..."></textarea>
-        <span class="error-msg" id="error-description">هذا الحقل مطلوب</span>
+        <label for="description">Description of Task/Service Needed <span class="required">*</span></label>
+        <textarea id="description" name="description" rows="5" required placeholder="Describe the service or project you need in detail..."></textarea>
+        <span class="error-msg" id="error-description">This field is required</span>
       </div>
 
       <button type="submit" id="submitBtn" class="submit-btn">
-        <span class="btn-text">إرسال الطلب</span>
+        <span class="btn-text">Submit Request</span>
         <span class="btn-spinner" style="display:none; align-items:center; gap:0.5rem;">
           <svg class="spinner" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <circle cx="12" cy="12" r="10" stroke-dasharray="60" stroke-dashoffset="20"></circle>
           </svg>
-          جاري الإرسال...
+          Sending...
         </span>
       </button>
     </form>
 
     <div id="successMessage" class="message success" style="display:none;">
       <div class="message-icon">✓</div>
-      <h3>تم إرسال طلبك بنجاح!</h3>
-      <p>هنتواصل معاك قريب على البريد أو الهاتف اللي سجلته.</p>
+      <h3>Your request has been sent successfully!</h3>
+      <p>We'll get in touch with you soon via the email or phone number you provided.</p>
     </div>
 
     <div id="errorMessage" class="message error" style="display:none;">
       <div class="message-icon">✕</div>
-      <h3>حدث خطأ أثناء الإرسال</h3>
-      <p id="errorText">يرجى المحاولة مرة أخرى أو التواصل معنا مباشرة.</p>
-      <button class="retry-btn" onclick="retryForm()">إعادة المحاولة</button>
+      <h3>An error occurred while sending</h3>
+      <p id="errorText">Please try again or contact us directly.</p>
+      <button class="retry-btn" onclick="retryForm()">Try Again</button>
     </div>
   </div>
 
   <script>
     // ═══════════════════════════════════════════════════════════════
-    // CONFIGURATION — اختر طريقة الإرسال المناسبة
+    // CONFIGURATION — choose the appropriate sending method
     // ═══════════════════════════════════════════════════════════════
 
-    // ─── خيار 1: Web3Forms (الأسهل — بدون تسجيل معقد) ───
+    // ─── Option 1: Web3Forms (easiest — no complex signup) ───
     const USE_WEB3FORMS = true;
-    const WEB3FORMS_ACCESS_KEY = '4d73f7c3-7e66-4ec1-a961-0ba6a09a9ce2'; // ← استبدل هذا بمفتاحك من web3forms.com
+    const WEB3FORMS_ACCESS_KEY = '4d73f7c3-7e66-4ec1-a961-0ba6a09a9ce2'; // ← replace this with your key from web3forms.com
 
-    // ─── خيار 2: Formspree ───
+    // ─── Option 2: Formspree ───
     // const USE_FORMSPREE = false;
     // const FORMSPREE_ENDPOINT = 'https://formspree.io/f/YOUR_FORM_ID';
 
-    // ─── خيار 3: EmailJS ───
+    // ─── Option 3: EmailJS ───
     // const USE_EMAILJS = false;
     // const EMAILJS_SERVICE_ID = 'YOUR_SERVICE_ID';
     // const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID';
     // const EMAILJS_PUBLIC_KEY = 'YOUR_PUBLIC_KEY';
 
-    // ─── خيار 4: Next.js API Route (Nodemailer/Resend) ───
+    // ─── Option 4: Next.js API Route (Nodemailer/Resend) ───
     // const USE_API_ROUTE = false;
     // const API_ROUTE_URL = '/api/contact';
 
@@ -407,7 +408,7 @@
           // ═══════════════════════════════════════
           const payload = {
             access_key: WEB3FORMS_ACCESS_KEY,
-            subject: 'طلب خدمة جديد من ' + document.getElementById('fullName').value,
+            subject: 'New service request from ' + document.getElementById('fullName').value,
             from_name: document.getElementById('fullName').value,
             email: document.getElementById('email').value,
             phone: document.getElementById('phone').value,
@@ -425,7 +426,7 @@
           if (result.success) {
             showSuccess();
           } else {
-            throw new Error(result.message || 'فشل في الإرسال');
+            throw new Error(result.message || 'Failed to send');
           }
 
         } else if (typeof USE_FORMSPREE !== 'undefined' && USE_FORMSPREE) {
@@ -442,7 +443,7 @@
           if (response.ok) {
             showSuccess();
           } else {
-            throw new Error('فشل في الإرسال عبر Formspree');
+            throw new Error('Failed to send via Formspree');
           }
 
         } else if (typeof USE_API_ROUTE !== 'undefined' && USE_API_ROUTE) {
@@ -460,12 +461,12 @@
           if (response.ok && result.success) {
             showSuccess();
           } else {
-            throw new Error(result.message || 'فشل في الإرسال');
+            throw new Error(result.message || 'Failed to send');
           }
         }
 
       } catch (err) {
-        showError(err.message || 'حدث خطأ أثناء الإرسال. يرجى المحاولة مرة أخرى.');
+        showError(err.message || 'An error occurred while sending. Please try again.');
       } finally {
         submitBtn.disabled = false;
         btnText.style.display = 'inline';
